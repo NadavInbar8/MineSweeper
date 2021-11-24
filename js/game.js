@@ -102,11 +102,14 @@ function flagClick(el) {
   var idx = +el.dataset.pos.charAt(0);
   var jdx = +el.dataset.pos.charAt(1);
   if (!el.innerText || el.innerText === FLAG) {
-    if (el.innerText === FLAG) {
-      el.innerText = '';
+    if (gBoard[idx][jdx].type === FLAG) {
+      el.innerHTML = '';
       gBoard[idx][jdx].isMarked = false;
+      gBoard[idx][jdx].type = '';
+
       gFlagCounter--;
     } else {
+      gBoard[idx][jdx].type = FLAG;
       el.innerHTML = "<img src='assets/defense.svg' height='50px' />";
       gBoard[idx][jdx].isMarked = true;
       gFlagCounter++;
