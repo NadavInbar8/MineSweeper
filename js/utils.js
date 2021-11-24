@@ -2,7 +2,7 @@
 function renderBoard(mat, selector) {
   var strHTML = '<table border="0"><tbody>';
   strHTML += `<tr><th><button class="smiley"
-  onclick="restartGame(${mat.length})">${SMILEY}</button><span>00:00:00</span>
+  onclick="restartGame(${mat.length})">${SMILEY}</button><span class="timer">00:00:00</span><span class="life"> ${gLife}x ${LIFE}</span>
   </th></tr>`;
 
   for (var i = 0; i < mat.length; i++) {
@@ -19,14 +19,12 @@ function renderBoard(mat, selector) {
         isBombData += 'false"';
       }
       strHTML +=
-        '<td onclick="cellClicked(this)" class="' +
+        `<td onclick="cellClicked(this)"  oncontextmenu="flagClick(this)" class="` +
         className +
         '" ' +
         isBombData +
         posData +
-        '>' +
-        mat[i][j].type +
-        '  </td>';
+        '> </td>';
     }
     strHTML += '</tr>';
   }
@@ -84,17 +82,49 @@ function getEmptyCell(board) {
 
 function getMinesAround(idx, jdx) {
   var countMines = 0;
-  console.log('inside the minesaround');
   for (var i = idx - 1; i <= idx + 1; i++) {
     if (i < 0 || i >= gBoard.length) continue;
     for (var j = jdx - 1; j <= jdx + 1; j++) {
       if (j < 0 || j >= gBoard[i].length) continue;
       if (i === idx && j === jdx) continue;
-      console.log(gBoard[i][j]);
       if (gBoard[i][j].type === MINE) {
         countMines++;
       }
     }
   }
   return countMines;
+}
+
+// //more advanced timer, aa:bb:cc kind, when setting interval need to set it for 100ms
+// function startTimer() {
+//   var timer = document.querySelector('.timer');
+//   var milisec = 0;
+//   var sec = 0;
+//   var min = 0;
+//   milisec++;
+//   if (milisec > 9) {
+//     sec++;
+//     milisec = 0;
+//   }
+//   if (sec > 59) {
+//     min++;
+//     sec = 0;
+//   }
+//   timer.innerText =
+//     (min < 10 ? '0' + min : min) +
+//     ':' +
+//     (sec < 10 ? '0' + sec : sec) +
+//     ':' +
+//     '0' +
+//     milisec;
+// }
+
+//simple timer, counting seconds, set interval to 100ms for smooth run
+function setTimer(gStartingTime) {
+  var currTime = new Date().getTime();
+  // var timer = parseInt((currTime-gStartingTime)/1000)
+  var timer = (currTime - gStartingTime) / 1000;
+  // console.log(timer)
+  var elTimer = document.querySelector('.timer');
+  elTimer.innerText = `Time:\n ${timer}`;
 }
