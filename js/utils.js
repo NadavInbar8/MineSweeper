@@ -1,10 +1,6 @@
 //prints a game table
 function renderBoard(mat, selector) {
   var strHTML = '<table border="0"><tbody>';
-  strHTML += `<tr><th><button class="smiley"
-  onclick="restartGame(${mat.length})">${SMILEY}</button><div class="timer" <span class="minute">00</span>:<span class="second">00</span></div><span class="life"> ${gLife}x ${LIFE}</span>
-  </th></tr>`;
-
   for (var i = 0; i < mat.length; i++) {
     strHTML += '<tr>';
     for (var j = 0; j < mat[0].length; j++) {
@@ -90,6 +86,8 @@ function getMinesAround(idx, jdx) {
 }
 
 var min = 0;
+var secEl = document.querySelector('.second');
+var minEl = document.querySelector('.minute');
 var sec = 0;
 function timer() {
   sec++;
@@ -98,8 +96,8 @@ function timer() {
     min++;
   }
   console.log('hey there');
-  document.querySelector('.second').innerHTML = sec;
-  document.querySelector('.minute').innerHTML = min;
+  secEl.innerHTML = sec;
+  minEl.innerHTML = min;
 }
 
 /////////////////////////////////////////////////////

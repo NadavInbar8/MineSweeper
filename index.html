@@ -23,11 +23,26 @@
           expert
         </button>
       </div>
+      <div class="game-status">
+        <div class="timer">
+          <span class="minute">00</span>:<span class="second">00</span>
+        </div>
+        <span class="life"
+          ><span class="life-count">2</span>X&nbsp;<img
+            src="assets/heart.svg"
+            height="40px"
+        /></span>
+      </div>
       <div class="modal hidden">
         <button class="close-modal">&times;</button>
         <h1>I'm a modal window 😍</h1>
       </div>
       <div class="overlay hidden"></div>
+      <div class="game-actions">
+        <button class="icon-button" onclick="init()">
+          <img src="assets/smiley.svg" height="50px" />
+        </button>
+      </div>
       <div class="board-container" oncontextmenu="return false"></div>
     </div>
     <script src="js/utils.js"></script>

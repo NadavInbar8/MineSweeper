@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;600;700&display=swap');
 :root {
   --cp1: #292f36;
   --cp2: #4ecdc4;
@@ -16,6 +17,9 @@ body {
   display: flex;
   flex-flow: column;
   align-items: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
   /* justify-content: center; */
 }
 .content {
@@ -23,10 +27,68 @@ body {
   width: 500vw;
 }
 .header {
+  display: flex;
+  justify-content: center;
+}
+.header-title {
+  font-weight: 400;
+}
+.options {
+  display: flex;
+  justify-content: center;
+}
+.option-button {
+  padding: 8px 16px;
+  margin: 8px;
+  font-size: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--cp2);
 }
 
+.game-status {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--cp3);
+  font-family: sans-serif;
+}
+.icon-button {
+}
+button {
+  background: transparent;
+  color: var(--cp2);
+  border: none;
+}
+
+.timer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0 32px;
+  font-size: 40px;
+  height: 100%;
+}
+.life {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+}
+
+.game-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
 /*---------table---------*/
 table {
+  border-spacing: 8px;
 }
 
 .smiley {
@@ -41,7 +103,11 @@ table {
   text-align: center;
   font-size: 1.5em;
   padding: 5px;
-  border: 2px solid;
+  border: 2px solid var(--cp2);
+  border-radius: 4px;
+}
+td {
+  margin: 4px;
 }
 
 /*---------modal---------*/

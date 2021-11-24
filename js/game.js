@@ -5,14 +5,13 @@ const MINE = '💣';
 const EMPTY = '⬜';
 const FLAG = '🚩';
 const SMILEY = '🙂';
-const LIFE = '❤';
 
 // Global Variables //
 
 var gBoard;
 var gBlankCounter = 0;
 var gFlagCounter = 0;
-var gLife = 3;
+var gLife = 2;
 var isFirstClick = true;
 var gTimerInterval;
 var gGameMode = {
@@ -31,13 +30,23 @@ function init() {
   randomMineInserter();
   renderBoard(gBoard, '.board-container');
   gGame.isOn = true;
+  clearInterval(gTimerInterval);
+  isFirstClick = true;
+  min = 0;
+  sec = 0;
+  secEl.innerHTML = sec;
+  minEl.innerHTML = min;
+  gLife = 2;
+  document.querySelector('.life-count').innerText = '2';
+  document.querySelector('.icon-button').innerHTML =
+    '<img src="assets/smiley.svg" height="50px" />';
 }
 
 function restartGame() {}
 
 function buildBoard(SIZE) {
-  // real minesweeper is 15*30
   var board = [];
+
   for (let i = 0; i < SIZE; i++) {
     board.push([]);
     for (let j = 0; j < SIZE; j++) {
@@ -55,19 +64,21 @@ function buildBoard(SIZE) {
 }
 
 function changeDifficulty(el) {
-  if (el.classList.value === 'easy') {
+  console.log(el.classList);
+  if (el.classList[0] === 'easy') {
     gGameMode.size = 4;
     gGameMode.mines = 2;
     gBlankCounter = 0;
-  } else if (el.classList.value === 'medium') {
+  } else if (el.classList[0] === 'medium') {
     gGameMode.size = 8;
     gGameMode.mines = 12;
     gBlankCounter = 0;
-  } else if (el.classList.value === 'expert') {
+  } else if (el.classList[0] === 'expert') {
     gBlankCounter = 0;
     gGameMode.size = 12;
     gGameMode.mines = 30;
   }
+
   init();
 }
 
@@ -96,7 +107,7 @@ function flagClick(el) {
       gBoard[idx][jdx].isMarked = false;
       gFlagCounter--;
     } else {
-      el.innerText = FLAG;
+      el.innerHTML = "<img src='assets/defense.svg' height='50px' />";
       gBoard[idx][jdx].isMarked = true;
       gFlagCounter++;
       console.log(gFlagCounter);
@@ -111,7 +122,6 @@ function cellClicked(el) {
   if (gGame.isOn === true) {
     if (isFirstClick) {
       isFirstClick = false;
-      console.log('hello');
       gTimerInterval = setInterval(timer, 1000);
     }
     var idx = +el.dataset.pos.charAt(0);
@@ -123,7 +133,8 @@ function cellClicked(el) {
             if (gBoard[i][j].type === MINE) {
               var posStr = i + '' + j;
               var curElCell = document.querySelector(`[data-pos="${posStr}"]`);
-              curElCell.innerText = MINE;
+              curElCell.innerHTML =
+                "<img src='assets/bomb-red.svg' height='50px' />";
               console.log('im here');
             }
           }
@@ -131,7 +142,7 @@ function cellClicked(el) {
         gameOver();
       } else if (el.dataset.ismine === 'true') {
         gLife--;
-        document.querySelector('.life').innerText = ` ${gLife}x ${LIFE}`;
+        document.querySelector('.life-count').innerText = gLife;
       } else if (gBoard[idx][jdx].isMarked === false) {
         gBoard[idx][jdx].isMarked = true;
 
@@ -182,6 +193,8 @@ function gameOver() {
     msg += `Congratz You've Won!`;
   } else {
     msg += `You Lost!... Better luck next time!`;
+    document.querySelector('.icon-button').innerHTML =
+      '<img src="assets/head.svg" height="50px" />';
   }
   var elModelH1 = modal.querySelector('h1');
   elModelH1.innerText = msg;
@@ -192,7 +205,8 @@ function gameOver() {
 
 function checkVictory() {
   if (gBlankCounter + gFlagCounter === gGameMode.size ** 2) {
-    document.querySelector('.smiley').innerText = '😎';
+    document.querySelector('.icon-button').innerHTML =
+      '<img src="assets/cool.svg" height="50px" />';
     return true;
   } else {
     return false;
