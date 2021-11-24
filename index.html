@@ -7,13 +7,17 @@
     <title>Nadav's MineSweeper</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body onload="init()">
-    <h1>MineSweeper</h1>
+  <body oncontextmenu="return false" onload="init()">
+    <h1 class="siteHead">MineSweeper</h1>
 
     <div class="diffuclty">
-      <button onclick="changeDifficulty(this)" class="easy">easy</button>
-      <button onclick="changeDifficulty(this)" class="medium">medium</button>
-      <button onclick="changeDifficulty(this)" class="expert">expert</button>
+      <button onclick="changeDifficulty(this)" class="easy difBtn">easy</button>
+      <button onclick="changeDifficulty(this)" class="medium difBtn">
+        medium
+      </button>
+      <button onclick="changeDifficulty(this)" class="expert difBtn">
+        expert
+      </button>
     </div>
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
