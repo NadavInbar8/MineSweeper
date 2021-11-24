@@ -12,9 +12,17 @@ body {
   overflow: hidden;
   background-color: var(--cp1);
   color: var(--cp2);
+  box-sizing: content-box;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  /* justify-content: center; */
 }
-
-.siteHead {
+.content {
+  /* margin: auto; */
+  width: 500vw;
+}
+.header {
 }
 
 /*---------table---------*/

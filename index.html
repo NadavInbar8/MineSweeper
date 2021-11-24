@@ -7,24 +7,29 @@
     <title>Nadav's MineSweeper</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body oncontextmenu="return false" onload="init()">
-    <h1 class="siteHead">MineSweeper</h1>
-
-    <div class="diffuclty">
-      <button onclick="changeDifficulty(this)" class="easy difBtn">easy</button>
-      <button onclick="changeDifficulty(this)" class="medium difBtn">
-        medium
-      </button>
-      <button onclick="changeDifficulty(this)" class="expert difBtn">
-        expert
-      </button>
+  <body onload="init()">
+    <div className="content">
+      <div class="header">
+        <h1 class="header-title">MineSweeper</h1>
+      </div>
+      <div class="options">
+        <button onclick="changeDifficulty(this)" class="easy option-button">
+          easy
+        </button>
+        <button onclick="changeDifficulty(this)" class="medium option-button">
+          medium
+        </button>
+        <button onclick="changeDifficulty(this)" class="expert option-button">
+          expert
+        </button>
+      </div>
+      <div class="modal hidden">
+        <button class="close-modal">&times;</button>
+        <h1>I'm a modal window 😍</h1>
+      </div>
+      <div class="overlay hidden"></div>
+      <div class="board-container" oncontextmenu="return false"></div>
     </div>
-    <div class="modal hidden">
-      <button class="close-modal">&times;</button>
-      <h1>I'm a modal window 😍</h1>
-    </div>
-    <div class="overlay hidden"></div>
-    <div data-isBomb="true" class="board-container"></div>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
   </body>
