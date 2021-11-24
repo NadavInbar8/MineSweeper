@@ -92,10 +92,17 @@ function flagClick(el) {
   el.addEventListener('contextmenu', function (ev) {
     ev.preventDefault();
   });
-  el.innerText = FLAG;
   var idx = +el.dataset.pos.charAt(0);
   var jdx = +el.dataset.pos.charAt(1);
-  gBoard[idx][jdx].isMarked = true;
+  if (!el.innerText || el.innerText === FLAG) {
+    if (el.innerText === FLAG) {
+      el.innerText = '';
+      gBoard[idx][jdx].isMarked = false;
+    } else {
+      el.innerText = FLAG;
+      gBoard[idx][jdx].isMarked = true;
+    }
+  }
 }
 
 function cellClicked(el) {
