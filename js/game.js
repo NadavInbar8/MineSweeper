@@ -28,6 +28,7 @@ var gGame = {
 
 function init() {
   gBoard = buildBoard(gGameMode.size);
+  randomMineInserter(gGameMode.mines);
   renderBoard(gBoard, '.board-container');
   gGame.isOn = true;
   clearInterval(gTimerInterval);
@@ -84,8 +85,8 @@ function changeDifficulty(el) {
   init();
 }
 
-function randomMineInserter() {
-  for (let i = 0; i < gGameMode.mines; i++) {
+function randomMineInserter(mines) {
+  for (let i = 0; i < mines; i++) {
     var randI = getRandomIntInclusive(0, gGameMode.size - 1);
     var randJ = getRandomIntInclusive(0, gGameMode.size - 1);
     if (gBoard[randI][randJ].type === MINE) {
@@ -124,17 +125,19 @@ function flagClick(el) {
 }
 
 function cellClicked(el) {
+  var idx = +el.dataset.pos.charAt(0);
+  var jdx = +el.dataset.pos.charAt(1);
   if (gGame.isOn === true) {
     if (isFirstClick) {
       isFirstClick = false;
-      randomMineInserter();
-      console.log(el);
-      renderBoard(gBoard, '.board-container');
+      if (el.dataset.ismine === 'true') {
+        el.dataset.ismine = 'false';
+        gBoard[idx][jdx].type = EMPTY;
+        randomMineInserter(1);
+      }
+      // renderBoard(gBoard, '.board-container');
       gTimerInterval = setInterval(timer, 1000);
     }
-    console.log(el);
-    var idx = +el.dataset.pos.charAt(0);
-    var jdx = +el.dataset.pos.charAt(1);
     if (gBoard[idx][jdx].type !== FLAG) {
       if (el.dataset.ismine === 'true') {
         el.innerHTML = "<img src='assets/bomb-red.svg' height='50px' />";
