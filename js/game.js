@@ -15,6 +15,7 @@ var gLife = 2;
 var gHint = 3;
 var isFirstClick = true;
 var gTimerInterval;
+var safeCount = 3;
 var gGameMode = {
   mines: 2,
   size: 4,
@@ -124,6 +125,29 @@ function flagClick(el) {
   }
 }
 
+function safeClick() {
+  if (safeCount > 0) {
+    safeCount--;
+    document.querySelector('.safe-count').innerText = safeCount;
+    var randI = getRandomIntInclusive(0, gGameMode.size - 1);
+    var randJ = getRandomIntInclusive(0, gGameMode.size - 1);
+    if (
+      gBoard[randI][randJ].type === EMPTY &&
+      gBoard[randI][randJ].isMarked === false
+    ) {
+      var posStr = randI + '' + randJ;
+      var curElCell = document.querySelector(`[data-pos="${posStr}"]`);
+      curElCell.classList.add('safe');
+      setTimeout(() => {
+        curElCell.classList.remove('safe');
+      }, 1000);
+      console.log(curElCell);
+    } else {
+      safeClick();
+    }
+  }
+}
+
 function cellClicked(el) {
   var idx = +el.dataset.pos.charAt(0);
   var jdx = +el.dataset.pos.charAt(1);
@@ -202,6 +226,8 @@ function cellClicked(el) {
     }
   }
 }
+
+function hintClick() {}
 
 function gameOver() {
   var msg = '';
