@@ -95,7 +95,6 @@ function timer() {
     sec = 0;
     min++;
   }
-  console.log('hey there');
   secEl.innerHTML = sec;
   minEl.innerHTML = min;
 }
