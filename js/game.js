@@ -45,7 +45,6 @@ function init() {
   document.querySelector('.safe-count').innerText = '3';
   document.querySelector('.icon-button').innerHTML =
     '<img src="assets/smiley.svg" height="50px" />';
-  console.clear();
 }
 
 function restartGame() {}
@@ -83,6 +82,7 @@ function changeDifficulty(el) {
     gGameMode.size = 12;
     gGameMode.mines = 30;
   }
+  console.clear();
 
   init();
 }
@@ -118,7 +118,6 @@ function flagClick(el) {
       el.innerHTML = "<img src='assets/defense.svg' height='50px' />";
       gBoard[idx][jdx].isMarked = true;
       gFlagCounter++;
-      console.log('problem 2');
       if (checkVictory()) {
         gameOver();
       } else console.log('returned false');
@@ -182,7 +181,6 @@ function cellClicked(el) {
               var curElCell = document.querySelector(`[data-pos="${posStr}"]`);
               curElCell.innerHTML =
                 "<img src='assets/bomb-red.svg' height='50px' />";
-              console.log('im here');
             }
           }
         }
@@ -239,14 +237,14 @@ function gameOver() {
     gBlankCounter === gGameMode.size ** 2 - gGameMode.mines &&
     gBlankCounter + gFlagCounter === gGameMode.size ** 2
   ) {
-    msg += `Congratz You've Won!`;
+    msg += `Congratulations You've Won! <img src="assets/cool.svg" height="50px" />`;
   } else {
     msg += `You Lost!... Better luck next time!`;
     document.querySelector('.icon-button').innerHTML =
       '<img src="assets/head.svg" height="50px" />';
   }
   var elModelH1 = modal.querySelector('h1');
-  elModelH1.innerText = msg;
+  elModelH1.innerHTML = msg;
   clearInterval(gTimerInterval);
   gGame.isOn = false;
   openModal();
