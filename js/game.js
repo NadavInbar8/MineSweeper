@@ -81,6 +81,7 @@ function changeDifficulty(el) {
     gBlankCounter = 0;
     gGameMode.size = 12;
     gGameMode.mines = 30;
+    document.querySelector('body').style.overflowY = 'auto';
   }
   console.clear();
 

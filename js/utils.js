@@ -21,6 +21,9 @@ function renderBoard(mat, selector) {
   strHTML += '</tbody></table>';
   var elContainer = document.querySelector(selector);
   elContainer.innerHTML = strHTML;
+  if (gGameMode.size == 12) {
+    document.querySelectorAll('.cell').style.height = '40px';
+  }
 }
 
 // renders a cell in a table.
