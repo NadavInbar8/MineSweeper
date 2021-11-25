@@ -11,8 +11,7 @@ const SMILEY = '🙂';
 var gBoard;
 var gBlankCounter = 0;
 var gFlagCounter = 0;
-var gLife = 2;
-var gHint = 3;
+var gLife = 3;
 var isFirstClick = true;
 var gTimerInterval;
 var safeCount = 3;
@@ -38,10 +37,12 @@ function init() {
   sec = 0;
   secEl.innerHTML = sec;
   minEl.innerHTML = min;
-  gLife = 2;
+  gLife = 3;
+  safeCount = 3;
   gBlankCounter = 0;
   gFlagCounter = 0;
-  document.querySelector('.life-count').innerText = '2';
+  document.querySelector('.life-count').innerText = '3';
+  document.querySelector('.safe-count').innerText = '3';
   document.querySelector('.icon-button').innerHTML =
     '<img src="assets/smiley.svg" height="50px" />';
   console.clear();
@@ -126,6 +127,7 @@ function flagClick(el) {
 }
 
 function safeClick() {
+  var temp = gGameMode.size ** 2 - gGameMode.mines;
   if (safeCount > 0) {
     safeCount--;
     document.querySelector('.safe-count').innerText = safeCount;
@@ -141,9 +143,11 @@ function safeClick() {
       setTimeout(() => {
         curElCell.classList.remove('safe');
       }, 1000);
-      console.log(curElCell);
-    } else {
+    } else if (gBlankCounter !== temp) {
+      safeCount++;
       safeClick();
+    } else {
+      return;
     }
   }
 }
@@ -170,7 +174,7 @@ function cellClicked(el) {
           gameOver();
         }
       }
-      if (el.dataset.ismine === 'true' && gLife <= 0) {
+      if (el.dataset.ismine === 'true' && gLife < 0) {
         for (let i = 0; i < gBoard.length; i++) {
           for (let j = 0; j < gBoard.length; j++) {
             if (gBoard[i][j].type === MINE) {
