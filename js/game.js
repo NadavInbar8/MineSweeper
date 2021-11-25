@@ -179,7 +179,7 @@ function cellClicked(el) {
           gameOver();
         }
       }
-      if (el.dataset.ismine === 'true' && gLife < 0) {
+      if (el.dataset.ismine === 'true' && gLife <= 0) {
         for (let i = 0; i < gBoard.length; i++) {
           for (let j = 0; j < gBoard.length; j++) {
             if (gBoard[i][j].type === MINE) {
@@ -193,7 +193,11 @@ function cellClicked(el) {
         gameOver();
       } else if (el.dataset.ismine === 'true') {
         gLife--;
-        document.querySelector('.life-count').innerText = gLife;
+        if (gLife === -1) {
+          document.querySelector('.life-count').innerText = 0;
+        } else {
+          document.querySelector('.life-count').innerText = gLife;
+        }
       } else if (gBoard[idx][jdx].isMarked === false) {
         gBoard[idx][jdx].isMarked = true;
 
