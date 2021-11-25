@@ -104,23 +104,28 @@ function randomMineInserter(mines) {
 }
 
 function flagClick(el) {
-  var idx = +el.dataset.pos.charAt(0);
-  var jdx = +el.dataset.pos.charAt(1);
-  if (!el.innerText || el.innerText === FLAG) {
-    if (gBoard[idx][jdx].type === FLAG) {
-      el.innerHTML = '';
-      gBoard[idx][jdx].isMarked = false;
-      gBoard[idx][jdx].type = '';
+  if (gGame.isOn) {
+    console.log(el);
+    var idx = +el.dataset.pos.charAt(0);
+    var jdx = +el.dataset.pos.charAt(1);
+    if (gBoard[idx][jdx].isMarked == false || gBoard[idx][jdx] != FLAG) {
+      if (!el.innerText || el.innerText === FLAG) {
+        if (gBoard[idx][jdx].type === FLAG) {
+          el.innerHTML = '';
+          gBoard[idx][jdx].isMarked = false;
+          gBoard[idx][jdx].type = '';
 
-      gFlagCounter--;
-    } else {
-      gBoard[idx][jdx].type = FLAG;
-      el.innerHTML = "<img src='assets/defense.svg' height='50px' />";
-      gBoard[idx][jdx].isMarked = true;
-      gFlagCounter++;
-      if (checkVictory()) {
-        gameOver();
-      } else console.log('returned false');
+          gFlagCounter--;
+        } else {
+          gBoard[idx][jdx].type = FLAG;
+          el.innerHTML = "<img src='assets/defense.svg' height='50px' />";
+          gBoard[idx][jdx].isMarked = true;
+          gFlagCounter++;
+          if (checkVictory()) {
+            gameOver();
+          } else console.log('returned false');
+        }
+      }
     }
   }
 }
@@ -161,6 +166,7 @@ function cellClicked(el) {
         el.dataset.ismine = 'false';
         gBoard[idx][jdx].type = EMPTY;
         randomMineInserter(1);
+        renderBoard(gBoard);
       }
       // renderBoard(gBoard, '.board-container');
       gTimerInterval = setInterval(timer, 1000);
